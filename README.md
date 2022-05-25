@@ -22,7 +22,7 @@ git clone https://github.com/Scarjit/Mastery-Helper.git
 go build
 ```
 
-3) Add your api key to the file `api_key.txt`
+3) Add your [api key](https://developer.riotgames.com/) to the file `api_key.txt`
 4) Run the program
 
 ### From binary
