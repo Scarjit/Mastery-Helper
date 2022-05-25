@@ -1,7 +1,7 @@
 package lcu
 
 import (
-	"AramHelper/helper"
+	"Mastery-Helper/helper"
 	"golang.org/x/sys/windows"
 	"os"
 	"path/filepath"

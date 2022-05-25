@@ -1,4 +1,4 @@
-module AramHelper
+module Mastery-Helper
 
 go 1.18
 
