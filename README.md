@@ -4,7 +4,7 @@
 
 This tool shows you which champions you might want to trade or pick from the bench to upgrade your mastery points.
 
-![Example](https://i.soontm.net/Yipu5/xOfaPeqa82.png/raw)]
+![Example](https://i.soontm.net/Yipu5/xOfaPeqa82.png/raw)
 
 ## Getting started
 
