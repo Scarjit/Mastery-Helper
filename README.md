@@ -16,7 +16,7 @@ This tool shows you which champions you might want to trade or pick from the ben
 git clone https://github.com/Scarjit/Mastery-Helper.git
 ```
 
-2) Compile the project
+2) Compile the project (tested with Go 1.18.1)
 
 ```
 go build
