@@ -13,7 +13,10 @@ import (
 	"time"
 )
 
+var buildtime string
+
 func main() {
+	fmt.Printf("This is Mastery Helper v%s\n", buildtime)
 
 	// Get the API key from the environment
 	file, err := os.ReadFile("api_key.txt")
