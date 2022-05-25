@@ -54,7 +54,8 @@ func GetChampionMasteryById(summonerName string, championId int) (*lol.ChampionM
 		return nil, "", err
 	}
 
-	mastery, err := GetLolAPIClient().Riot.LoL.ChampionMastery.Get(id.ID, champion.Key)
+	fmt.Printf("Getting mastery for %s\n", champion.Name)
+	mastery, err := GetLolAPIClient().Riot.LoL.ChampionMastery.Get(id.ID, champion.ID)
 	if err != nil {
 		fmt.Printf("Error getting mastery: %s\n", err)
 		return nil, "", err
