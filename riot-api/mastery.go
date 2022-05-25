@@ -1,16 +1,23 @@
 package riot_api
 
 import (
-	"fmt"
 	"github.com/KnutZuidema/golio"
 	"github.com/KnutZuidema/golio/api"
-	"github.com/KnutZuidema/golio/riot/lol"
+	"log"
 	"strconv"
 )
 
 var client *golio.Client
 
 var ApiKey string
+
+type Mastery struct {
+	Name         string
+	Level        int
+	Points       int
+	ChestGranted bool
+	TokensEarned int
+}
 
 // GetLolAPIClient returns a golio client
 func GetLolAPIClient() *golio.Client {
@@ -23,48 +30,52 @@ func GetLolAPIClient() *golio.Client {
 }
 
 // champCache is a cache for champion data, it is used to reduce the amount of requests to the riot api
-var champCache = make(map[int]struct {
-	Name    string
-	Mastery *lol.ChampionMastery
-})
+var champCache = make(map[int]Mastery)
 
 // WipeCache wipes the champ mastery cache
 func WipeCache() {
-	champCache = make(map[int]struct {
-		Name    string
-		Mastery *lol.ChampionMastery
-	})
+	champCache = make(map[int]Mastery)
 }
 
 // GetChampionMasteryById returns the mastery of a champion and there name
-func GetChampionMasteryById(summonerName string, championId int) (*lol.ChampionMastery, string, error) {
+func GetChampionMasteryById(summonerName string, championId int) (*Mastery, error) {
 	if champ, ok := champCache[championId]; ok {
-		return champ.Mastery, champ.Name, nil
+		return &champ, nil
 	}
 
 	id, err := GetLolAPIClient().Riot.LoL.Summoner.GetByName(summonerName)
 	if err != nil {
-		fmt.Printf("Error getting summoner: %s\n", err)
-		return nil, "", err
+		log.Printf("Error getting summoner: %s\n", err)
+		return nil, err
 	}
 
 	champion, err := GetLolAPIClient().DataDragon.GetChampionByID(strconv.Itoa(championId))
 	if err != nil {
-		fmt.Printf("Error getting champion: %s\n", err)
-		return nil, "", err
+		log.Printf("Error getting champion: %s\n", err)
+		return nil, err
 	}
 
+	log.Printf("Getting mastery for id: %s and champion id: %s\n", id.ID, champion.Key)
 	mastery, err := GetLolAPIClient().Riot.LoL.ChampionMastery.Get(id.ID, champion.Key)
+	m := Mastery{
+		Name:         champion.Name,
+		Level:        0,
+		Points:       0,
+		ChestGranted: false,
+		TokensEarned: 0,
+	}
 	if err != nil {
-		fmt.Printf("Error getting mastery: %s\n", err)
-		return nil, "", err
+		log.Printf("Error getting mastery for summoner %s and champion: %s: %s \n", id.ID, champion.ID, err)
+		champCache[championId] = m
+		return &m, err
 	}
-	champCache[championId] = struct {
-		Name    string
-		Mastery *lol.ChampionMastery
-	}{
-		Name:    champion.Name,
-		Mastery: mastery,
+	m = Mastery{
+		Name:         champion.Name,
+		Level:        mastery.ChampionLevel,
+		Points:       mastery.ChampionPoints,
+		ChestGranted: mastery.ChestGranted,
+		TokensEarned: mastery.TokensEarned,
 	}
-	return mastery, champion.Name, err
+	champCache[championId] = m
+	return &m, err
 }

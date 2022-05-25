@@ -54,26 +54,5 @@ func UnmarshalSummoner(data []byte) (Summoner, error) {
 }
 
 type Summoner struct {
-	AccountID                   int64        `json:"accountId"`
-	DisplayName                 string       `json:"displayName"`
-	InternalName                string       `json:"internalName"`
-	NameChangeFlag              bool         `json:"nameChangeFlag"`
-	PercentCompleteForNextLevel int64        `json:"percentCompleteForNextLevel"`
-	Privacy                     string       `json:"privacy"`
-	ProfileIconID               int64        `json:"profileIconId"`
-	Puuid                       string       `json:"puuid"`
-	RerollPoints                RerollPoints `json:"rerollPoints"`
-	SummonerID                  int64        `json:"summonerId"`
-	SummonerLevel               int64        `json:"summonerLevel"`
-	Unnamed                     bool         `json:"unnamed"`
-	XPSinceLastLevel            int64        `json:"xpSinceLastLevel"`
-	XPUntilNextLevel            int64        `json:"xpUntilNextLevel"`
-}
-
-type RerollPoints struct {
-	CurrentPoints    int64 `json:"currentPoints"`
-	MaxRolls         int64 `json:"maxRolls"`
-	NumberOfRolls    int64 `json:"numberOfRolls"`
-	PointsCostToRoll int64 `json:"pointsCostToRoll"`
-	PointsToReroll   int64 `json:"pointsToReroll"`
+	DisplayName string `json:"displayName"`
 }

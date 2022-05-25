@@ -6,6 +6,7 @@ import (
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -38,11 +39,13 @@ func GetSession(token string, port uint64) *Session {
 
 	bytes, err := io.ReadAll(resp.Body)
 	if err != nil {
+		log.Printf("Failed to read body: %s\n", err)
 		return nil
 	}
 
 	session, err := UnmarshalSession(bytes)
 	if err != nil {
+		log.Printf("Failed to unmarshal session: %s\n", err)
 		return nil
 	}
 
@@ -56,80 +59,19 @@ func UnmarshalSession(data []byte) (Session, error) {
 }
 
 type Session struct {
-	Actions              [][]Action           `json:"actions"`
-	AllowBattleBoost     bool                 `json:"allowBattleBoost"`
-	AllowDuplicatePicks  bool                 `json:"allowDuplicatePicks"`
-	AllowLockedEvents    bool                 `json:"allowLockedEvents"`
-	AllowRerolling       bool                 `json:"allowRerolling"`
-	AllowSkinSelection   bool                 `json:"allowSkinSelection"`
-	Bans                 Bans                 `json:"bans"`
-	BenchChampionIDS     []int                `json:"benchChampionIds"`
-	BenchEnabled         bool                 `json:"benchEnabled"`
-	BoostableSkinCount   int64                `json:"boostableSkinCount"`
-	ChatDetails          ChatDetails          `json:"chatDetails"`
-	Counter              int64                `json:"counter"`
-	EntitledFeatureState EntitledFeatureState `json:"entitledFeatureState"`
-	GameID               int64                `json:"gameId"`
-	HasSimultaneousBans  bool                 `json:"hasSimultaneousBans"`
-	HasSimultaneousPicks bool                 `json:"hasSimultaneousPicks"`
-	IsCustomGame         bool                 `json:"isCustomGame"`
-	IsSpectating         bool                 `json:"isSpectating"`
-	LocalPlayerCellID    int64                `json:"localPlayerCellId"`
-	LockedEventIndex     int64                `json:"lockedEventIndex"`
-	MyTeam               []MyTeam             `json:"myTeam"`
-	RecoveryCounter      int64                `json:"recoveryCounter"`
-	RerollsRemaining     int64                `json:"rerollsRemaining"`
-	SkipChampionSelect   bool                 `json:"skipChampionSelect"`
-	TheirTeam            []interface{}        `json:"theirTeam"`
-	Timer                Timer                `json:"timer"`
-	Trades               []interface{}        `json:"trades"`
-}
-
-type Action struct {
-	ActorCellID  int64  `json:"actorCellId"`
-	ChampionID   int64  `json:"championId"`
-	Completed    bool   `json:"completed"`
-	ID           int64  `json:"id"`
-	IsAllyAction bool   `json:"isAllyAction"`
-	IsInProgress bool   `json:"isInProgress"`
-	PickTurn     int64  `json:"pickTurn"`
-	Type         string `json:"type"`
-}
-
-type Bans struct {
-	MyTeamBans    []interface{} `json:"myTeamBans"`
-	NumBans       int64         `json:"numBans"`
-	TheirTeamBans []interface{} `json:"theirTeamBans"`
-}
-
-type ChatDetails struct {
-	ChatRoomName     string `json:"chatRoomName"`
-	ChatRoomPassword string `json:"chatRoomPassword"`
-}
-
-type EntitledFeatureState struct {
-	AdditionalRerolls int64         `json:"additionalRerolls"`
-	UnlockedSkinIDS   []interface{} `json:"unlockedSkinIds"`
+	BenchChampionIDS []int    `json:"benchChampionIds"`
+	BenchEnabled     bool     `json:"benchEnabled"`
+	MyTeam           []MyTeam `json:"myTeam"`
+	Timer            Timer    `json:"timer"`
 }
 
 type MyTeam struct {
-	AssignedPosition    string `json:"assignedPosition"`
-	CellID              int64  `json:"cellId"`
-	ChampionID          int64  `json:"championId"`
-	ChampionPickIntent  int64  `json:"championPickIntent"`
-	EntitledFeatureType string `json:"entitledFeatureType"`
-	SelectedSkinID      int64  `json:"selectedSkinId"`
-	Spell1ID            int64  `json:"spell1Id"`
-	Spell2ID            int64  `json:"spell2Id"`
-	SummonerID          int64  `json:"summonerId"`
-	Team                int64  `json:"team"`
-	WardSkinID          int64  `json:"wardSkinId"`
+	ChampionID     int64 `json:"championId"`
+	SelectedSkinID int64 `json:"selectedSkinId"`
+	SummonerID     int64 `json:"summonerId"`
 }
 
 type Timer struct {
-	AdjustedTimeLeftInPhase int64  `json:"adjustedTimeLeftInPhase"`
-	InternalNowInEpochMS    int64  `json:"internalNowInEpochMs"`
-	IsInfinite              bool   `json:"isInfinite"`
-	Phase                   string `json:"phase"`
-	TotalTimeInPhase        int64  `json:"totalTimeInPhase"`
+	AdjustedTimeLeftInPhase int64 `json:"adjustedTimeLeftInPhase"`
+	IsInfinite              bool  `json:"isInfinite"`
 }
