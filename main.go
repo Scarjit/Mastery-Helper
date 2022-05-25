@@ -66,7 +66,7 @@ func main() {
 
 		t := table.NewWriter()
 		t.SetOutputMirror(os.Stdout)
-		t.AppendHeader(table.Row{"Champion", "Level", "Points", "Chest Granted", "Tokens Earned"})
+		t.AppendHeader(table.Row{"#", "Champion", "Level", "Points", "Chest Granted", "Tokens Earned"})
 
 		for session.Timer.AdjustedTimeLeftInPhase > 0 || session.Timer.IsInfinite {
 			session = lol_champ_select.GetSession(lockfile.Password, lockfile.Port)
@@ -103,10 +103,11 @@ func main() {
 				return masteryInfo[i].Level > masteryInfo[j].Level
 			})
 			t.ResetRows()
-			for _, s := range masteryInfo {
+			for i, s := range masteryInfo {
 				if s != nil {
 
 					t.AppendRow(table.Row{
+						i + 1,
 						s.Name,
 						s.Level,
 						s.Points,
