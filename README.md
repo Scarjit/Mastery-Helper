@@ -1,6 +1,6 @@
 # Mastery Helper
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FScarjit%2FMastery-Helper.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FScarjit%2FMastery-Helper?ref=badge_shield)
-
+[![Build](https://github.com/Scarjit/Mastery-Helper/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/Scarjit/Mastery-Helper/actions/workflows/build.yaml)
 
 This tool shows you which champions you might want to trade or pick from the bench to upgrade your mastery points.
 
