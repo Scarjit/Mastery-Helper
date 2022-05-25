@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"sort"
 	"time"
 )
 
@@ -98,6 +99,9 @@ func main() {
 				masteryInfo = append(masteryInfo, championMastery)
 			}
 
+			sort.Slice(masteryInfo, func(i, j int) bool {
+				return masteryInfo[i].Level > masteryInfo[j].Level
+			})
 			t.ResetRows()
 			for _, s := range masteryInfo {
 				if s != nil {
