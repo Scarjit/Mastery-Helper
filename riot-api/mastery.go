@@ -45,17 +45,16 @@ func GetChampionMasteryById(summonerName string, championId int) (*Mastery, erro
 
 	id, err := GetLolAPIClient().Riot.LoL.Summoner.GetByName(summonerName)
 	if err != nil {
-		log.Printf("Error getting summoner: %s\n", err)
+		log.Printf("Error getting summoner: (%s) %s\n", summonerName, err)
 		return nil, err
 	}
 
 	champion, err := GetLolAPIClient().DataDragon.GetChampionByID(strconv.Itoa(championId))
 	if err != nil {
-		log.Printf("Error getting champion: %s\n", err)
+		log.Printf("Error getting champion: (%d) %s\n", championId, err)
 		return nil, err
 	}
 
-	log.Printf("Getting mastery for id: %s and champion id: %s\n", id.ID, champion.Key)
 	mastery, err := GetLolAPIClient().Riot.LoL.ChampionMastery.Get(id.ID, champion.Key)
 	m := Mastery{
 		Name:         champion.Name,
@@ -65,7 +64,7 @@ func GetChampionMasteryById(summonerName string, championId int) (*Mastery, erro
 		TokensEarned: 0,
 	}
 	if err != nil {
-		log.Printf("Error getting mastery for summoner %s and champion: %s: %s \n", id.ID, champion.ID, err)
+		log.Printf("Error getting mastery for summoner %s and champion: %s: %s \n (Not played yet ?)", id.ID, champion.ID, err)
 		champCache[championId] = m
 		return &m, err
 	}
