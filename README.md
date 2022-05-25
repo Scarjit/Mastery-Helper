@@ -1,8 +1,12 @@
 # Mastery Helper
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FScarjit%2FMastery-Helper.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FScarjit%2FMastery-Helper?ref=badge_shield)
+
 
 This tool shows you which champions you might want to trade or pick from the bench to upgrade your mastery points.
 
 ## Getting started
+
+### From source
 1) Clone or download the repository
 
 ```
@@ -18,6 +22,10 @@ go build
 3) Add your api key to the file `api_key.txt`
 4) Run the program
 
+### From binary
+1) Download the [latest binary](https://github.com/Scarjit/Mastery-Helper/releases)
+2) Add your api key to the file `api_key.txt`
+3Run the program
 
 # Credits
 
