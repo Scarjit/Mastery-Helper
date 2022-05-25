@@ -1,11 +1,11 @@
 package main
 
 import (
-	"AramHelper/helper"
-	"AramHelper/lcu"
-	lol_champ_select "AramHelper/lcu/lol-champ-select/v1"
-	lol_login "AramHelper/lcu/lol-summoner/v1/current-summoner"
-	riot_api "AramHelper/riot-api"
+	"Mastery-Helper/helper"
+	"Mastery-Helper/lcu"
+	lol_champ_select "Mastery-Helper/lcu/lol-champ-select/v1"
+	lol_login "Mastery-Helper/lcu/lol-summoner/v1/current-summoner"
+	riot_api "Mastery-Helper/riot-api"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"log"
 	"os"
