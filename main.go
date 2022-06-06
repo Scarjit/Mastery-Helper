@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -27,13 +28,13 @@ func main() {
 		time.Sleep(time.Second * 5)
 		return
 	}
-	riot_api.ApiKey = string(file)
+	riot_api.ApiKey = strings.TrimSpace(string(file))
 
 	// Check if the API key is valid
 	riotClient := riot_api.GetLolAPIClient()
 	_, err = riotClient.Riot.LoL.Summoner.GetByName("Scarjit")
 	if err != nil {
-		log.Printf("Failed to retrieve scarjitSummoner, your API_KEY might be invalid : %s\n", err)
+		log.Printf("Failed to retrieve scarjit summoner, your API_KEY might be invalid : %s\n", err)
 		return
 	}
 
